@@ -13,17 +13,20 @@ const NavBar = styled.nav`
 
 export default function Nav() {
   const { data: session } = useSession();
-  if (session) {
-    return (
-      <>
-        <StyledButton>Sign Out</StyledButton>
-      </>
-    );
-  }
+
   return (
     <NavBar>
-      <StyledButton variant="signup">Sign Up</StyledButton>
-      <StyledButton>Sign In</StyledButton>
+      {session ? (
+        <>
+          <span>Welcome, {session.user.name}</span>
+          <StyledButton onClick={() => signOut()}>Sign Out</StyledButton>
+        </>
+      ) : (
+        <>
+          <StyledButton onClick={() => signIn("github")}>Sign Up</StyledButton>
+          <StyledButton onClick={() => signIn("github")}>Sign In</StyledButton>
+        </>
+      )}
     </NavBar>
   );
 }

@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+// import "@/styles/globals.css";
 import Layout from "../components/Layout/Layout.js";
 import React from "react";
 import { SessionProvider } from "next-auth/react";
