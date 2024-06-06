@@ -9,17 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^3.2.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.6.2",
+    "mongodb": "^6.7.0",
     "mongoose": "^8.4.1",
     "next": "14.2.3",
+    "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
     "styled-components": "^6.1.11",
     "swr": "^2.2.5"
   },
   "devDependencies": {
+    "@types/node": "20.14.2",
+    "@types/react": "18.3.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.3"
   }
