@@ -2,6 +2,7 @@
 import Layout from "../components/Layout/Layout.js";
 import React from "react";
 import { SessionProvider } from "next-auth/react";
+import syncData from "../services/syncData.mjs";
 
 export default function App({
   Component,

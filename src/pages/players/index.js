@@ -9,7 +9,7 @@ export default function PlayersPage() {
   if (error) return <h2>Error loading players</h2>;
 
   const playerData = data.data;
-  console.log("Player Data: ", playerData);
+  console.log("Data: ", data);
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URI;
 
 if (!MONGODB_URI) {
   throw new Error(
@@ -8,10 +8,10 @@ if (!MONGODB_URI) {
   );
 }
 
-let cached = global.mongoose;
+let cached = globalThis.mongoose;
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+  cached = globalThis.mongoose = { conn: null, promise: null };
 }
 
 async function dbConnect() {
