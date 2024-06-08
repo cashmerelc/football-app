@@ -7,12 +7,12 @@ const playerSchema = new Schema({
   fullName: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  birthDate: { type: String, required: true },
-  nationality: { type: Number, required: true },
-  height: { type: Number, required: true },
-  position: { type: Number, required: true },
-  detailedPosition: { type: Number, required: true },
-  typeId: { type: Number, required: true },
+  birthDate: { type: String },
+  nationality: { type: Number },
+  height: { type: Number },
+  position: { type: Number },
+  detailedPosition: { type: Number },
+  typeId: { type: Number },
   //   comments: { type: [Schema.Types.ObjectId], ref: "Comment" },
 });
 
