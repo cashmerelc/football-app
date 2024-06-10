@@ -4,17 +4,15 @@ export default async function handler(req, res) {
 
   if (req.method === "GET") {
     try {
-      const response = await fetch(
-        `${API_URL}/players?api_token=${API_TOKEN}&include=statistics`
-      );
+      const response = await fetch(`${API_URL}/seasons?api_token=${API_TOKEN}`);
 
       if (response.ok) {
-        const playerData = await response.json();
-        console.log("playerData: ", playerData);
+        const seasonData = await response.json();
+        console.log("seasonData: ", seasonData);
 
-        return res.status(200).json(playerData);
+        return res.status(200).json(seasonData);
       } else {
-        console.log("Issue fetching player data");
+        console.log("Issue fetching season data");
 
         const errorText = await response.text();
         return res.status(response.status).json({ error: errorText });
