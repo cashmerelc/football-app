@@ -13,8 +13,6 @@ export default function Home() {
   const { data: session } = useSession();
 
   return (
-    <>
-      <a href="./form/newLeague">Create New League</a>
-    </>
+    <>{session ? <a href="./form/newLeague">Create New League</a> : <></>}</>
   );
 }

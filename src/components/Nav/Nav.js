@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { StyledButton } from "../Button/StyledButton.js";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Dropdown, Space } from "antd";
 
 const NavBar = styled.nav`
   background-color: #86b6f6;
@@ -11,6 +13,13 @@ const NavBar = styled.nav`
   justify-content: space-between;
 `;
 
+const items = [
+  {
+    label: <StyledButton onClick={() => signOut()}>Sign Out</StyledButton>,
+    key: "0",
+  },
+];
+
 export default function Nav() {
   const { data: session } = useSession();
 
@@ -19,6 +28,18 @@ export default function Nav() {
       {session ? (
         <>
           <span>Welcome, {session.user.name}</span>
+          <Dropdown
+            menu={{
+              items,
+            }}
+            trigger={["click"]}
+          >
+            <Space direction="vertical" size={16}>
+              <Space wrap size={16}>
+                <Avatar size="large" icon={<UserOutlined />} />
+              </Space>
+            </Space>
+          </Dropdown>
           <StyledButton onClick={() => signOut()}>Sign Out</StyledButton>
         </>
       ) : (
