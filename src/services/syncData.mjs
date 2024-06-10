@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
-import dbConnect from "../db/dbconnect.mjs";
+import dbConnect from "../db/dbConnect.mjs";
 import Season from "../db/models/Season.mjs";
 import Player from "../db/models/Player.mjs";
 import Team from "../db/models/Team.mjs";
