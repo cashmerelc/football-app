@@ -40,7 +40,6 @@ export default function Nav() {
               </Space>
             </Space>
           </Dropdown>
-          <StyledButton onClick={() => signOut()}>Sign Out</StyledButton>
         </>
       ) : (
         <>
