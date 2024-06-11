@@ -1,14 +1,20 @@
 import dbConnect from "../../../db/dbConnect.mjs";
+import { ObjectId } from "mongodb";
 import FantasyLeague from "../../../db/models/FantasyLeague.mjs";
 
 export default async function handler(req, res) {
   await dbConnect();
-
+  const { userId } = req.query;
+  console.log("Request Query: ", req.query.userId);
+  console.log("Valid ObjectId? ", ObjectId.isValid(req.query.userId));
+  const userObjectId = ObjectId.createFromHexString(userId);
+  console.log("userObjectId: ", userObjectId);
   if (req.method === "GET") {
     try {
       const leagues = await FantasyLeague.find({
-        participants: req.body.userId,
+        participants: userObjectId,
       });
+      console.log("My leagues: ", leagues);
 
       if (!req) {
         return res.status(404).json({ error: "Not Found" });
