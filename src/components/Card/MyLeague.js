@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import LeagueCard from "../Card/LeagueCard";
+import Link from "next/link";
+import LeagueCard from "./LeagueCard";
 
 export default function MyLeagues({ leagues }) {
   return (
@@ -8,7 +9,9 @@ export default function MyLeagues({ leagues }) {
         {leagues.map((league) => {
           return (
             <li key={league._id}>
-              <LeagueCard league={league} />
+              <Link href={`/fantasyleagues/${league._id}`}>
+                <LeagueCard league={league} />
+              </Link>
             </li>
           );
         })}

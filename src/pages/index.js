@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useSession } from "next-auth/react";
-import MyLeague from "../components/League/MyLeague";
+import MyLeague from "../components/Card/MyLeague";
 import Link from "next/link";
 import StyledLink from "../components/Link/StyledLink";
 import { useState, useEffect } from "react";
@@ -39,13 +39,15 @@ export default function Home() {
           {leagues.length > 0 ? (
             <MyLeague leagues={leagues} />
           ) : (
-            <p>No Leagues</p>
+            <p>No Leagues. Join or create a league to get started!</p>
           )}
 
           <a href="./create">Create New League</a>
         </>
       ) : (
-        <></>
+        <>
+          <p>Log in to get started!</p>
+        </>
       )}
     </>
   );
