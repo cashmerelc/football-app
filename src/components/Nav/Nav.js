@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { StyledButton } from "../Button/StyledButton.js";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Dropdown, Space } from "antd";
 
 const NavBar = styled.nav`
   background-color: #86b6f6;
@@ -10,6 +12,13 @@ const NavBar = styled.nav`
   display: flex;
   justify-content: space-between;
 `;
+// Commented out until issue with ant-design/icons is resolved for Next 14.1+
+// const items = [
+//   {
+//     label: <StyledButton onClick={() => signOut()}>Sign Out</StyledButton>,
+//     key: "0",
+//   },
+// ];
 
 export default function Nav() {
   const { data: session } = useSession();
@@ -20,6 +29,18 @@ export default function Nav() {
         <>
           <span>Welcome, {session.user.name}</span>
           <StyledButton onClick={() => signOut()}>Sign Out</StyledButton>
+          {/* <Dropdown
+            menu={{
+              items,
+            }}
+            trigger={["click"]}
+          >
+            <Space direction="vertical" size={16}>
+              <Space wrap size={16}>
+                <Avatar size="large" icon={<UserOutlined />} />
+              </Space>
+            </Space>
+          </Dropdown> */}
         </>
       ) : (
         <>

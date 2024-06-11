@@ -12,9 +12,5 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const { data: session } = useSession();
 
-  return (
-    <>
-      <a href="./form/newLeague">Create New League</a>
-    </>
-  );
+  return <>{session ? <a href="./create">Create New League</a> : <></>}</>;
 }
