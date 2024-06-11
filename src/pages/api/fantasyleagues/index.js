@@ -4,13 +4,14 @@ import FantasyLeague from "../../../db/models/FantasyLeague.mjs";
 
 export default async function handler(req, res) {
   await dbConnect();
-  const { userId } = req.query;
-  console.log("Request Query: ", req.query.userId);
-  console.log("Valid ObjectId? ", ObjectId.isValid(req.query.userId));
-  const userObjectId = ObjectId.createFromHexString(userId);
-  console.log("userObjectId: ", userObjectId);
+
   if (req.method === "GET") {
     try {
+      const { userId } = req.query;
+      console.log("Request Query: ", req.query.userId);
+      console.log("Valid ObjectId? ", ObjectId.isValid(req.query.userId));
+      const userObjectId = ObjectId.createFromHexString(userId);
+      console.log("userObjectId: ", userObjectId);
       const leagues = await FantasyLeague.find({
         participants: userObjectId,
       });
