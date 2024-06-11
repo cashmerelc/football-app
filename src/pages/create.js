@@ -19,7 +19,7 @@ export default function CreateLeague() {
 
     if (response.ok) {
       mutate();
-      // router.push("/");
+      router.push("/");
     }
   }
 
