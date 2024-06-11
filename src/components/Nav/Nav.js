@@ -12,13 +12,13 @@ const NavBar = styled.nav`
   display: flex;
   justify-content: space-between;
 `;
-
-const items = [
-  {
-    label: <StyledButton onClick={() => signOut()}>Sign Out</StyledButton>,
-    key: "0",
-  },
-];
+// Commented out until issue with ant-design/icons is resolved for Next 14.1+
+// const items = [
+//   {
+//     label: <StyledButton onClick={() => signOut()}>Sign Out</StyledButton>,
+//     key: "0",
+//   },
+// ];
 
 export default function Nav() {
   const { data: session } = useSession();
@@ -28,7 +28,8 @@ export default function Nav() {
       {session ? (
         <>
           <span>Welcome, {session.user.name}</span>
-          <Dropdown
+          <StyledButton onClick={() => signOut()}>Sign Out</StyledButton>
+          {/* <Dropdown
             menu={{
               items,
             }}
@@ -39,7 +40,7 @@ export default function Nav() {
                 <Avatar size="large" icon={<UserOutlined />} />
               </Space>
             </Space>
-          </Dropdown>
+          </Dropdown> */}
         </>
       ) : (
         <>

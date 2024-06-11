@@ -1,22 +1,24 @@
 import styled from "styled-components";
 
-export default function NewLeagueForm({ userId }) {
-  const leagueAdmin = userId;
-  console.log("admin id: ", leagueAdmin);
-
-  function addLeague(event) {
+export default function NewLeagueForm({ onSubmit, userId }) {
+  function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    console.log("Form data: ", data);
+    onSubmit(data);
   }
 
   return (
     <>
-      <form onSubmit={addLeague}>
-        <h2>2024/25 Season</h2>
-        <label htmlFor="league-name">League Name:</label>
-        <input type="text" name="league-name" required></input>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="leagueName">League Name:</label>
+        <input type="text" name="leagueName" required></input>
+        <input type="hidden" name="seasonId" value="2024/2025" />
+        <input type="hidden" name="adminId" value={userId || ""} />
+        <input type="hidden" name="readyState" value="false" />
+        <input type="hidden" name="avatar" value="" />
+        <input type="hidden" name="participants" value={userId || ""} />
+
         <button type="submit">Create League</button>
       </form>
     </>

@@ -6,7 +6,7 @@ const fantasyLeagueSchema = new Schema({
   leagueName: { type: String, required: true },
   seasonId: { type: String, required: true },
   adminId: { type: String, required: true },
-  readyState: { type: bool },
+  readyState: { type: String },
   avatar: { type: String },
   participants: { type: [Schema.Types.ObjectId], ref: "Participant" },
 });
