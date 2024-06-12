@@ -6,6 +6,7 @@ import Season from "../db/models/Season.mjs";
 import Player from "../db/models/Player.mjs";
 import Team from "../db/models/Team.mjs";
 import Type from "../db/models/Type.mjs";
+import League from "../db/models/League.mjs";
 
 import SyncTracking from "../db/models/SyncTracking.mjs";
 
@@ -83,48 +84,53 @@ export default async function syncData() {
   const existingTeams = await Team.find();
   const existingTeamIds = existingTeams.map((team) => team.externalId);
 
+  // Get leagues currently in the database
+
+  const existingLeagues = await League.find();
+  const existingLeagueIds = existingLeagues.map((league) => league.externalId);
+
   // Sync Teams
 
-  let isNextPageTeams = true;
-  let hasSyncedTeams = false;
-  let currentPageTeams = 1;
-  while (isNextPageTeams && !hasSyncedTeams) {
-    try {
-      console.log(`Fetching teams page ${currentPageTeams}`);
+  // let isNextPageTeams = true;
+  // let hasSyncedTeams = false;
+  // let currentPageTeams = 1;
+  // while (isNextPageTeams && !hasSyncedTeams) {
+  //   try {
+  //     console.log(`Fetching teams page ${currentPageTeams}`);
 
-      // fetch teams from API
-      const teamData = await fetcher(
-        `${API_URL}/teams?api_token=${API_TOKEN}&page=${currentPageTeams}&per_page=50`
-      );
-      // Filter out the teams that are already in the database
-      const newTeams = teamData.data.filter(
-        (team) => !existingTeamIds.includes(team.id)
-      );
-      // If there are any new teams, add them to the database
-      if (newTeams.length > 0) {
-        await Team.insertMany(
-          newTeams.map((team) => ({
-            externalId: team.id,
-            name: team.name,
-            shortCode: team.short_code,
-            imagePath: team.image_path,
-            lastPlayed: team.last_played_at,
-          }))
-        );
-        console.log("Teams synced");
-      } else {
-        console.log(`No new teams in page ${currentPageTeams}`);
-      }
-      console.log(`Teams has more pages? ${teamData.pagination.has_more}`);
-      teamData.pagination.has_more
-        ? (currentPageTeams = currentPageTeams + 1)
-        : (isNextPageTeams = false);
-    } catch (error) {
-      console.log("Error during sync:", error);
-      isNextPageTeams = false;
-    }
-  }
-  hasSyncedTeams = true;
+  //     // fetch teams from API
+  //     const teamData = await fetcher(
+  //       `${API_URL}/teams?api_token=${API_TOKEN}&page=${currentPageTeams}&per_page=50`
+  //     );
+  //     // Filter out the teams that are already in the database
+  //     const newTeams = teamData.data.filter(
+  //       (team) => !existingTeamIds.includes(team.id)
+  //     );
+  //     // If there are any new teams, add them to the database
+  //     if (newTeams.length > 0) {
+  //       await Team.insertMany(
+  //         newTeams.map((team) => ({
+  //           externalId: team.id,
+  //           name: team.name,
+  //           shortCode: team.short_code,
+  //           imagePath: team.image_path,
+  //           lastPlayed: team.last_played_at,
+  //         }))
+  //       );
+  //       console.log("Teams synced");
+  //     } else {
+  //       console.log(`No new teams in page ${currentPageTeams}`);
+  //     }
+  //     console.log(`Teams has more pages? ${teamData.pagination.has_more}`);
+  //     teamData.pagination.has_more
+  //       ? (currentPageTeams = currentPageTeams + 1)
+  //       : (isNextPageTeams = false);
+  //   } catch (error) {
+  //     console.log("Error during sync:", error);
+  //     isNextPageTeams = false;
+  //   }
+  // }
+  // hasSyncedTeams = true;
 
   // Sync seasons
 
@@ -165,6 +171,48 @@ export default async function syncData() {
   //   }
   //   hasSyncedSeasons = true;
   // }
+
+  let isNextPageLeagues = true;
+  let hasSyncedLeagues = false;
+  let currentPageLeagues = 1;
+  while (isNextPageLeagues && !hasSyncedLeagues) {
+    try {
+      console.log(`Fetching leagues page ${currentPageLeagues}`);
+
+      // fetch leagues from API
+      const leagueData = await fetcher(
+        `${API_URL}/leagues?api_token=${API_TOKEN}&page=${currentPageLeagues}&per_page=50`
+      );
+      // Filter out the leagues that are already in the database
+      const newLeagues = leagueData.data.filter(
+        (league) => !existingLeagueIds.includes(league.id)
+      );
+      // If there are any new leagues, add them to the database
+      if (newLeagues.length > 0) {
+        await League.insertMany(
+          newLeagues.map((league) => ({
+            externalId: league.id,
+            name: league.name,
+            active: league.active,
+            image: league.image_path,
+            subType: league.sub_type,
+            countryId: league.country_id,
+          }))
+        );
+        console.log("Leagues synced");
+      } else {
+        console.log(`No new leagues in page ${currentPageLeagues}`);
+      }
+      console.log(`Leagues has more pages? ${leagueData.pagination.has_more}`);
+      leagueData.pagination.has_more
+        ? (currentPageLeagues = currentPageLeagues + 1)
+        : (isNextPageLeagues = false);
+    } catch (error) {
+      console.log("Error during sync:", error);
+      isNextPageLeagues = false;
+    }
+    hasSyncedLeagues = true;
+  }
 
   // Sync players
 
