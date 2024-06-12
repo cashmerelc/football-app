@@ -1,10 +1,9 @@
-import dbConnect from "../../../db/dbConnect.mjs";
-import FantasyLeague from "../../../db/models/FantasyLeague.mjs";
+import dbConnect from "../../../../db/dbConnect.mjs";
+import FantasyLeague from "../../../../db/models/FantasyLeague.mjs";
 
 export default async function handler(req, res) {
   const { id } = req.query;
   await dbConnect();
-
   try {
     if (req.method === "GET") {
       const league = await FantasyLeague.findById(id);
