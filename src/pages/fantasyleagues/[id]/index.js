@@ -14,6 +14,7 @@ export default function FantasyLeagueDetailsPage() {
 
   if (!isReady || isLoading || error) return <h2>Loading...</h2>;
   const league = data.league;
+  console.log("Participants: ", league.participants);
   return (
     <>
       <h1>{league.leagueName}</h1>
@@ -21,7 +22,11 @@ export default function FantasyLeagueDetailsPage() {
       <ul>
         <h3>Participants:</h3>
         {league.participants.map((participant, index) => {
-          <li key={index}>{participant}</li>;
+          <li key={index}>
+            {index}
+            Test
+            {participant}
+          </li>;
         })}
       </ul>
     </>
