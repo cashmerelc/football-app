@@ -1,5 +1,5 @@
 import dbConnect from "../../../db/dbConnect.mjs";
-import User from "../../../db/models/User";
+import User from "../../../db/models/User.mjs";
 
 export default async function handler(req, res) {
   const { id } = req.query;

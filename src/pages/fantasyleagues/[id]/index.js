@@ -55,6 +55,13 @@ export default function FantasyLeagueDetailsPage() {
           <p>No participants found.</p>
         )}
       </ul>
+      {league.readyState === "false" ? (
+        <>
+          <button>Invite Others</button> <button>Leave League</button>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 }
